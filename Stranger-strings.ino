@@ -258,7 +258,8 @@ void allOn() {
   strip.show();
 }
 
-bool checkForReset(int val) { // Key press 9
+// Listens for key press of 9 to reset
+bool checkForReset(int val) {
   if (val == 57) {
     return 1;
   } else {

@@ -40,6 +40,9 @@ void setup() {
 
 void loop() {
 
+  // Light up all letters (for aligning the lights etc)
+  // allOn();
+
   // Wait for first byte
   while(!Serial.available());
       
@@ -54,6 +57,12 @@ void loop() {
 
       Serial.println("RESET");
       reset();
+
+    // Check if it's a space
+    } else if ( checkForSpace(serialVal) ) {
+
+      Serial.println("Space");
+      space();
 
     // If not, light it up
     } else {
@@ -213,9 +222,39 @@ void letter(int val) {
 void allOff() {
   // Set all to black
   for(uint16_t i=0; i<strip.numPixels(); i++) {
-    strip.setPixelColor(i, strip.Color(0,0,0,0));
+    strip.setPixelColor(i, strip.Color(0,0,0));
   }
   // Execute
+  strip.show();
+}
+
+void allOn() {
+  strip.setPixelColor(73, strip.Color(255,0,0));
+  strip.setPixelColor(70, strip.Color(255,0,0));
+  strip.setPixelColor(67, strip.Color(255,0,0));
+  strip.setPixelColor(65, strip.Color(255,0,0));
+  strip.setPixelColor(62, strip.Color(255,0,0));
+  strip.setPixelColor(59, strip.Color(255,0,0));
+  strip.setPixelColor(57, strip.Color(255,0,0));
+  strip.setPixelColor(54, strip.Color(255,0,0));
+  strip.setPixelColor(29, strip.Color(255,0,0));
+  strip.setPixelColor(32, strip.Color(255,0,0));
+  strip.setPixelColor(35, strip.Color(255,0,0));
+  strip.setPixelColor(37, strip.Color(255,0,0));
+  strip.setPixelColor(39, strip.Color(255,0,0));
+  strip.setPixelColor(42, strip.Color(255,0,0));
+  strip.setPixelColor(44, strip.Color(255,0,0));
+  strip.setPixelColor(47, strip.Color(255,0,0));
+  strip.setPixelColor(49, strip.Color(255,0,0));
+  strip.setPixelColor(22, strip.Color(255,0,0));
+  strip.setPixelColor(19, strip.Color(255,0,0));
+  strip.setPixelColor(16, strip.Color(255,0,0));
+  strip.setPixelColor(14, strip.Color(255,0,0));
+  strip.setPixelColor(11, strip.Color(255,0,0));
+  strip.setPixelColor(8, strip.Color(255,0,0));
+  strip.setPixelColor(6, strip.Color(255,0,0));
+  strip.setPixelColor(4, strip.Color(255,0,0));
+  strip.setPixelColor(1, strip.Color(255,0,0));
   strip.show();
 }
 
@@ -231,6 +270,21 @@ void reset() {
   colorWipe(strip.Color(255, 0, 0), 50); // Red
   colorWipe(strip.Color(0, 255, 0), 50); // Green
   colorWipe(strip.Color(0, 0, 255), 50); // Blue
+}
+
+bool checkForSpace(int val) { // Key press SPACEBAR
+  if (val == 32) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+void space() {
+  for(uint16_t i=0; i<strip.numPixels(); i++) {
+    strip.setPixelColor(i, strip.Color(255,0,0)); // Set all to red
+    strip.show();
+  }
 }
 
 // Fill the dots one after the other with a color
